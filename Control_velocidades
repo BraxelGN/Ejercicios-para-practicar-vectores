@@ -1,0 +1,85 @@
+#include <stdio.h>
+
+#define MAX_REGISTROS 50
+
+void ingresarDatos(float* hora, float* minutos, float* velocidad, int* codigoCamion) {
+    printf("Ingrese los datos de la toma de velocidad:\n");
+    printf("Hora: ");
+    scanf("%f", hora);
+    printf("Minutos: ");
+    scanf("%f", minutos);
+    printf("Velocidad en km/h: ");
+    scanf("%f", velocidad);
+    printf("Código de camión (1 a 3): ");
+    scanf("%d", codigoCamion);
+}
+
+void emitirReportes(float* horas, float* minutos, float* velocidades, int* codigosCamion, int numRegistros) {
+    int i;
+    float maximaVelocidad = 0;
+
+    printf("Reporte del camión 2:\n");
+
+    for (i = 0; i < numRegistros; i++) {
+        if (codigosCamion[i] == 2) {
+            printf("Hora: %.0f:%.0f - Velocidad: %.2f km/h\n", horas[i], minutos[i], velocidades[i]);
+
+            if (velocidades[i] > maximaVelocidad) {
+                maximaVelocidad = velocidades[i];
+            }
+        }
+    }
+
+    if (maximaVelocidad > 0) {
+        printf("Máxima velocidad del camión 2: %.2f km/h\n", maximaVelocidad);
+    } else {
+        printf("No se registraron velocidades para el camión 2.\n");
+    }
+}
+
+int main() {
+    int opcion, numRegistros = 0;
+    float horas[MAX_REGISTROS];
+    float minutos[MAX_REGISTROS];
+    float velocidades[MAX_REGISTROS];
+    int codigosCamion[MAX_REGISTROS];
+
+    do {
+        printf("MENU\n");
+        printf("1 - Ingresar y cargar vectores con datos de simulación\n");
+        printf("2 - Emitir reportes\n");
+        printf("3 - Salir\n");
+        printf("Ingrese una opción: ");
+        scanf("%d", &opcion);
+
+        switch (opcion) {
+            case 1: {
+                float hora, minuto, velocidad;
+                int codigoCamion;
+
+                ingresarDatos(&hora, &minuto, &velocidad, &codigoCamion);
+
+                horas[numRegistros] = hora;
+                minutos[numRegistros] = minuto;
+                velocidades[numRegistros] = velocidad;
+                codigosCamion[numRegistros] = codigoCamion;
+
+                numRegistros++;
+                break;
+            }
+            case 2:
+                emitirReportes(horas, minutos, velocidades, codigosCamion, numRegistros);
+                break;
+            case 3:
+                printf("Saliendo del programa...\n");
+                break;
+            default:
+                printf("Opción inválida. Por favor, ingrese una opción válida.\n");
+                break;
+        }
+
+        printf("\n");
+    } while (opcion != 3);
+
+    return 0;
+}
