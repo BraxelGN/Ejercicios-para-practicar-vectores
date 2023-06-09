@@ -1,2 +1,2 @@
-# Ejercicios-para-practicar-vectores
+# Ejercicios-para-practicar-PUNTEROS
 Resolucion de ejercicios con vectores
